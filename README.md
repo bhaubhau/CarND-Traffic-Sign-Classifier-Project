@@ -56,6 +56,8 @@ signs data set:
 I plotted a sample of 5 image sets and their RGB components, so as to get an idea of the different components of the training images
 ![alt text][image1]
 
+I have also plotted the histogram on number of each type of images present per class as indicated in cell 6 of the notebook
+
 ### Design and Test a Model Architecture
 
 #### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
@@ -95,9 +97,11 @@ I used the LeNet model implementation with 4 layers input and added few other la
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
 To train the model, I used an Adam optimizer with learning rate of 0.001 and Epochs=50, BatchSize=128. I also set an expected accuracy threshold, where if the model reached a desired threshold of 0.94, it saves the model
+I tried training the model by modifying the hyper parameters like the number of Epochs. Saw that by increasing the number of epochs, the accuracy of the model reaches a specific point and then it starts oscillating. So once the model reached the specified threshold, I stopped the training and saved the model
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
+I used implementation of existing LeNet model, which classifies nonMnist dataset of characters, and as the size of images available were close to those used by Lenet, this model was used. I tried using other techniques like introduction of dropout layers with different keep probabilities as well changing the output layer sizes, average pooling etc, and the model giving the desired accuracy was finaly chosen
 My final model results were:
 * validation set accuracy of 0.94
 * test set accuracy of 0.92
@@ -108,6 +112,10 @@ My final model results were:
 #### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
 The five german traffic signs I found on web are displayed in cell 14 of the file (https://view5f1639b6.udacity-student-workspaces.com/view/CarND-Traffic-Sign-Classifier-Project/Traffic_Sign_Classifier.html)
+Some of the things to be considered in the images are 
+1. The angle of signs like in case of the go straight or left, if the angle of sign gets mis aligned, the output results may not be correct
+2. If the background is very large, the area of interest on the image may get destroyed when rescaling the image leading to wrong results
+3. background objects like clouds, trees etc may cause inaccuracies
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
